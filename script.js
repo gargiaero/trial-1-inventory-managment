@@ -5,6 +5,13 @@ gapi.load('auth2', function () {
     });
 });
 
+// Function to trigger Google Sign-In
+
+function signInWithGoogle() {
+    const authInstance = gapi.auth2.getAuthInstance();
+    authInstance.signIn().then(onSignIn);
+}
+
 // Function to trigger Google Sign-In or Sign-Out
 function signInOrOutWithGoogle() {
     const authInstance = gapi.auth2.getAuthInstance();
@@ -36,24 +43,26 @@ function onSignIn(googleUser) {
     // You can also send this email to your backend for further authentication and data association.
 
     // Example: Send the email to the server for authentication
-     fetch('/auth/google', {
-         method: 'POST',
-         body: JSON.stringify({ email: userEmail }),
-         headers: {
-             'Content-Type': 'application/json',
-         },
-     })
-     .then(response => response.json())
-     .then(data => {
-         if (data.success) {
-             alert(`Welcome, ${userEmail}!`);
-         } else {
-             alert('Authentication failed.');
-         }
-     })
-     .catch(error => {
-         console.error(error);
-     });
+    fetch('/auth/google', {
+        method: 'POST',
+        body: JSON.stringify({ email: userEmail }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(`Welcome, ${userEmail}!`);
+            document.getElementById("google-sign-in-container").style.display = "none";
+            document.getElementById("inventory-page").style.display = "block";
+        } else {
+            alert('Authentication failed.');
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    });
 
     // Update the UI to show the sign-out button
     document.getElementById("google-sign-in").style.display = "none";

@@ -13,10 +13,11 @@
     <header>
         <h1>Inventory Management System</h1>
     </header>
-    <button id="google-sign-in" onclick="signInOrOutWithGoogle()">Sign in with Google</button>
-    <button id="google-sign-out" onclick="signOutFromGoogle()" style="display: none;">Sign out</button>
-    
-    <main>
+    <div id="google-sign-in-container">
+        <button id="google-sign-in" onclick="signInWithGoogle()">Sign in with Google</button>
+    </div>
+
+    <main style="display: none;" id="inventory-page">
         <section id="add-item">
             <h2>Add Item</h2>
             <form id="add-item-form">
